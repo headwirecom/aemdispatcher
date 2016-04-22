@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+# This script returns the status of the (running) application
+# 0 - if the application is running
+# 1 - if the program is dead
+# 3 - if the program is not running
+# 4 - if there is a unknown problem
+
+BIN_PATH=$(dirname $0)
+cd $BIN_PATH/..
+START_OPTS='status -c .'
+if [ -z $CQ_JARFILE ]; then
+	CQ_JARFILE=`ls app/*.jar | head -1`
+fi
+
+java -jar $CQ_JARFILE $START_OPTS

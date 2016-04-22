@@ -1,0 +1,12 @@
+#
+# Language Mapping for Browser Language to AEM language node
+#
+# Key: language code of the Accept Language of the supported browsers
+# Value: node name of the language inside AEM
+#
+de de
+fr fr
+es es
+it it
+ja ja
+zh zh

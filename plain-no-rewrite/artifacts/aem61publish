@@ -1,0 +1,51 @@
+#!/bin/bash
+#
+# /etc/r.d/init.d/cq5author
+#
+# of the file to the end of the tags section must begin with a #
+# character. After the tags section, there should be a blank line.
+# This keeps normal comments in the rest of the file from being
+# mistaken for tags, should they happen to fit the pattern.>
+#
+# chkconfig: 35 85 15
+# description: This service manages the Adobe WEM Content Management java process.
+# processname: aem61publish
+# pidfile: @AEM_HOME_FOLDER@/crx-quickstart/conf/cq.pid
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+AEM_ROOT=@AEM_HOME_FOLDER@/crx-quickstart
+AEM_USER=root
+
+########
+SERVER=${AEM_ROOT}
+START=${SERVER}/bin/start
+STOP=${SERVER}/bin/stop
+STATUS="${SERVER}/bin/status"
+
+case "$1" in
+start)
+echo -n "Starting AEM services: "
+su - ${AEM_USER} ${START}
+# touch /var/lock/subsys/aem61
+;;
+stop)
+echo -n "Shutting down AEM services: "
+su - ${AEM_USER} ${STOP}
+# rm -f /var/lock/subsys/aem61
+;;
+status)
+su - ${AEM_USER} ${STATUS}
+;;
+restart)
+su - ${AEM_USER} ${STOP}
+su - ${AEM_USER} ${START}
+;;
+reload)
+;;
+*)
+echo "Usage: aem61publish {start|stop|status|reload}"
+exit 1
+;;
+esac
