@@ -1,6 +1,9 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+options = {}
+options[:module] = ENV['MODULE'] || 'plain-no-rewrite'
+
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
@@ -64,5 +67,5 @@ Vagrant.configure(2) do |config|
   #   push.app = "YOUR_ATLAS_USERNAME/YOUR_APPLICATION_NAME"
   # end
 
-   config.vm.provision "shell", path: "scripts/bootstrap.sh"
+   config.vm.provision "shell", path: "scripts/bootstrap.sh", args: options[:module]
 end
