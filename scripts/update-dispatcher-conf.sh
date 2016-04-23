@@ -4,8 +4,14 @@ SUB_PROJECT=$1
 
 . ./setenv.sh
 
-# Copy Project Fiels to project folder
-cp -R $SYNC_FOLDER/$SUB_PROJECT/httpd/dispatcher/* $APACHE_CONF_HOME
+if [ "$2" == "local" ]
+then
+	# Copy Project Fiels to project folder
+	cp -R $SYNC_FOLDER/$SUB_PROJECT/httpd/dispatcher/* $APACHE_CONF_HOME
+else
+	# Copy Project Fiels to project folder
+	cp -R $GIT_FOLDER/aemdispatcher/$SUB_PROJECT/httpd/dispatcher/* $APACHE_CONF_HOME
+fi
 
 # Filter Dispatcher HTTP Conf and Dispatcher Any file
 cd $APACHE_CONF_HOME
