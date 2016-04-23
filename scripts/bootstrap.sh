@@ -77,7 +77,12 @@ echo "Starting AEM Publish"
 service aem61publish start
 
 # Run the Dispather Conf Update Script
-cd $GIT_HOME_FOLDER/aemdispatcher/scripts
+if [ "$2" == "local" ]
+then
+	cd $SCRIPTS_FOLDER
+else
+	cd $GIT_HOME_FOLDER/aemdispatcher/scripts
+fi
 pwd
 . ./update-dispatcher-conf.sh $1
 

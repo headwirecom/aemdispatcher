@@ -7,10 +7,12 @@ SUB_PROJECT=$1
 if [ "$2" == "local" ]
 then
 	# Copy Project Fiels to project folder
+	echo "cp -R $SYNC_FOLDER/$SUB_PROJECT/httpd/dispatcher/* $APACHE_CONF_HOME""
 	cp -R $SYNC_FOLDER/$SUB_PROJECT/httpd/dispatcher/* $APACHE_CONF_HOME
 else
 	# Copy Project Fiels to project folder
-	cp -R $GIT_FOLDER/aemdispatcher/$SUB_PROJECT/httpd/dispatcher/* $APACHE_CONF_HOME
+	echo "cp -R $GIT_HOME_FOLDER/aemdispatcher/$SUB_PROJECT/httpd/dispatcher/* $APACHE_CONF_HOME"
+	cp -R $GIT_HOME_FOLDER/aemdispatcher/$SUB_PROJECT/httpd/dispatcher/* $APACHE_CONF_HOME
 fi
 
 # Filter Dispatcher HTTP Conf and Dispatcher Any file
