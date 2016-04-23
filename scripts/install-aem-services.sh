@@ -1,12 +1,19 @@
 #!/bin/bash
 
-echo
-echo "Copying System V start up scripts..."
-echo
-cp $1/aem61publish /etc/init.d
+echo "************************************************"
+echo "Load Environment Variables"
+echo "************************************************"
+. ./setenv.sh
 
-ENCODED=$( echo "$2" | sed 's/\//\\\//g' )
+echo "************************************************"
+echo "Copying System V start up scripts..."
+echo "************************************************"
+cp $ARTIFACTS_FOLDER/aem61publish /etc/init.d
+
+ENCODED=$( echo "$AEM_HOME_FOLDER" | sed 's/\//\\\//g' )
+echo "************************************************"
 echo Encoded AEM Folder: $ENCODED
+echo "************************************************"
 sed -i 's/\@AEM_HOME_FOLDER\@/'$ENCODED'/g' /etc/init.d/aem61publish
 
 chmod 755 /etc/init.d/aem*
@@ -14,11 +21,11 @@ chmod 755 /etc/init.d/aem*
 # echo "Copying environment settings..."
 # cp $1/solr*.in.sh /etc/default
 
-echo
+echo "************************************************"
 echo "Enabling AEM services..."
-echo
+echo "************************************************"
 chkconfig aem61publish on
-echo
+echo "************************************************"
 echo "Enabling HTTPD services..."
-echo
+echo "************************************************"
 chkconfig httpd on

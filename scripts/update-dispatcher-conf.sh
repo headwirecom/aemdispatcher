@@ -1,41 +1,43 @@
 #!/bin/bash
 
 SUB_PROJECT=$1
-echo
-echo "Install Sub Module: $UB_PROJECT"
-echo
+echo "************************************************"
+echo "Install Sub Module: $SUB_PROJECT"
+echo "************************************************"
 
-echo
+echo "************************************************"
 echo "Load Environment Variables"
-echo
+echo "************************************************"
 . ./setenv.sh
 
 if [ "$2" == "local" ]
 then
 	# Copy Project Fiels to project folder
-	echo
+	echo "************************************************"
 	echo "Copy Dispatcher Configuration from local env"
-	echo
+	echo "************************************************"
 	cp -R $SYNC_FOLDER/$SUB_PROJECT/httpd/dispatcher/* $APACHE_CONF_HOME
 else
 	# Copy Project Fiels to project folder
-	echo
+	echo "************************************************"
 	echo "Copy Dispatcher Configuration from GIT folder"
-	echo
+	echo "************************************************"
 	cp -R $GIT_HOME_FOLDER/aemdispatcher/$SUB_PROJECT/httpd/dispatcher/* $APACHE_CONF_HOME
 fi
 
 # Filter Dispatcher HTTP Conf and Dispatcher Any file
 cd $APACHE_CONF_HOME
+echo "************************************************"
 echo Filter HTTP Configuration and Dispatcher.any files
+echo "************************************************"
 
 for file in *
 do
 	if [ -f $file ]
 	then
-		echo
+		echo "************************************************"
 		echo "Filter File: $file"
-		echo
+		echo "************************************************"
 		ENCODED=$( echo "$PROJECT_MODULE" | sed 's/\//\\\//g' )
 		echo Encoded Project Module: $ENCODED
 		sed -i 's/\@PROJECT_MODULE\@/'$ENCODED'/g' $file
@@ -49,16 +51,16 @@ do
 		echo Encoded Document Root Folder: $ENCODED
 		sed -i 's/\@APACHE_DOCUMENT_ROOT_FOLDER\@/'$ENCODED'/g' $file
 	else
-		echo
+		echo "************************************************"
 		echo "Not a File (Ignored): $file"
-		echo
+		echo "************************************************"
 	fi
 done
 
 # Link the Dispqtcher HTTP Conf file into the Apache
-echo
-echo Link HTTP Conf File: ln -s `ls $APACHE_CONF_HOME/*.httpd.conf` /etc/httpd/conf.d/dispatcher.httpd.conf
-echo
+echo "************************************************"
+echo Link HTTP Conf File: `ls $APACHE_CONF_HOME/*.httpd.conf` to /etc/httpd/conf.d/dispatcher.httpd.conf
+echo "************************************************"
 ln -s `ls $APACHE_CONF_HOME/*.httpd.conf` /etc/httpd/conf.d/dispatcher.httpd.conf
 
 # Restart Apache

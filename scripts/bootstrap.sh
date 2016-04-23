@@ -1,127 +1,128 @@
 #!/bin/bash
 
-echo
+echo "************************************************"
 echo Installing Module: $1
-echo
+echo "************************************************"
 
-echo
+echo "************************************************"
 echo "Load Settings"
-echo
+echo "************************************************"
 . /home/vagrant/sync/scripts/setenv.sh
 
 # Disable SELINUX
-echo
+echo "************************************************"
 echo "Disable SELINUX"
-echo
+echo "************************************************"
 setenforce 0
 
 # Update Configuation to keep SELINUX disabled
-echo
+echo "************************************************"
 echo "Permanently disable SELINUX"
-echo
+echo "************************************************"
 sed -i 's/enforcing/disadbled/g' /etc/selinux/config
 
 # Create Home Folder and make it Root readable
-echo
+echo "************************************************"
 echo "Create AEM Home Folder: $AEM_HOME_FOLDER"
-echo
+echo "************************************************"
 mkdir -p $AEM_HOME_FOLDER
 chown root $AEM_HOME_FOLDER
 
 # Create Apache Document Root Folder
-echo
+echo "************************************************"
 echo "Create Apache Document Root $APACHE_DOCUMENT_ROOT_FOLDER"
-echo
+echo "************************************************"
 mkdir -p $APACHE_DOCUMENT_ROOT_FOLDER
 chmod -R 777 $APACHE_DOCUMENT_ROOT_FOLDER
 
 # Create Dispatcher / Modules Folder
-echo
+echo "************************************************"
 echo "Create Project Module: $PROJECT_MODULE"
-echo
+echo "************************************************"
 mkdir -p $PROJECT_MODULE
 cd $PROJECT_MODULE
 
 # Extract Dispatcher Module
 DISPATCHER_FILE=`ls $ARTIFACTS_FOLDER/$DISPATCHER_NAME`
-echo
+echo "************************************************"
 echo "Expand Dispatcher Archive: $DISPATCHER_FILE"
-echo
+echo "************************************************"
 tar -xzf $DISPATCHER_FILE
 
 # Create Symbolic Link for Dispatcher Module
-echo
+echo "************************************************"
 echo "Create Symbolic Link to Dispatcher Module"
-echo
+echo "************************************************"
 ln -s `ls dispatcher*.so` mod_dispatcher.so
 
 # Install 1.8 JDK
-echo
+echo "************************************************"
 echo "Install the JDK"
-echo
+echo "************************************************"
 yum -y install curl lsof net-tools java-1.8.0-openjdk-devel 
 
 # Install Apache Web Server
-echo
+echo "************************************************"
 echo "Install Apache HTTPD Service"
-echo
+echo "************************************************"
 yum -y install httpd
 
 # Install Git to clone Project later
-echo
+echo "************************************************"
 echo "Install GIT"
-echo
+echo "************************************************"
 yum -y install git
 
-echo
+echo "************************************************"
 echo "Create Git Homme Folder: $GIT_HOME_FOLDER"
-echo
+echo "************************************************"
 mkdir -p $GIT_HOME_FOLDER
 cd $GIT_HOME_FOLDER
-echo
+echo "************************************************"
 echo "Clone AEM Dispatcher GIT Repo: $GIT_REPO_URL"
-echo
+echo "************************************************"
 git clone $GIT_REPO_URL
 
 PUBLISH_DOMAIN=publish
 
-echo
+echo "************************************************"
 echo "Updating /etc/hosts..."
-echo
+echo "************************************************"
 echo "127.0.0.1 $PUBLISH_DOMAIN" >> /etc/hosts
 #echo "127.0.0.1 $PUBLISH_DOMAIN" >> /etc/hosts
 
 # Copy AEM into project
-echo
+echo "************************************************"
 echo "Create AEM Home folder: $AEM_HOME_FOLDER and copy AEM Jar and License file"
-echo
+echo "************************************************"
 mkdir -p $AEM_HOME_FOLDER
 cd $AEM_HOME_FOLDER
 cp $ARTIFACTS_FOLDER/aem* $AEM_HOME_FOLDER/
 cp $ARTIFACTS_FOLDER/license* $AEM_HOME_FOLDER/
 
 # Extract the AEM Installation
-echo
+echo "************************************************"
 echo "Extract AEM JAR file"
-echo
+echo "************************************************"
 java -jar aem*.jar -unpack
 
 # Copy Runlevel Scripts
-echo
+echo "************************************************"
 echo "Install our own AEM Start / Stop scripts"
-echo
+echo "************************************************"
 cp -R  $ARTIFACTS_FOLDER/bin $AEM_HOME_FOLDER/crx-quickstart/
 
 # Install System V scripts
-echo
+echo "************************************************"
 echo "INstall Sytem V runlevel scripts for AEM"
-echo
-$SCRIPTS_FOLDER/install-aem-services.sh $ARTIFACTS_FOLDER $AEM_HOME_FOLDER
+echo "************************************************"
+cd $SCRIPTS_FOLDER
+. ./install-aem-services.sh
 
 # No need to start the AEM Publish isntance as we just did beforehand
-echo
+echo "************************************************"
 echo "Starting AEM Publish and HTTPD Services"
-echo
+echo "************************************************"
 service aem61publish start
 service httpd start
 
@@ -132,7 +133,6 @@ then
 else
 	cd $GIT_HOME_FOLDER/aemdispatcher/scripts
 fi
-pwd
 . ./update-dispatcher-conf.sh $1
 
 cat << EOF
