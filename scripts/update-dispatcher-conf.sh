@@ -7,7 +7,7 @@ SUB_PROJECT=$1
 if [ "$2" == "local" ]
 then
 	# Copy Project Fiels to project folder
-	echo "cp -R $SYNC_FOLDER/$SUB_PROJECT/httpd/dispatcher/* $APACHE_CONF_HOME""
+	echo "cp -R $SYNC_FOLDER/$SUB_PROJECT/httpd/dispatcher/* $APACHE_CONF_HOME"
 	cp -R $SYNC_FOLDER/$SUB_PROJECT/httpd/dispatcher/* $APACHE_CONF_HOME
 else
 	# Copy Project Fiels to project folder
@@ -36,9 +36,7 @@ do
 		ENCODED=$( echo "$APACHE_DOCUMENT_ROOT_FOLDER" | sed 's/\//\\\//g' )
 		echo Encoded Document Root Folder: $ENCODED
 		sed -i 's/\@APACHE_DOCUMENT_ROOT_FOLDER\@/'$ENCODED'/g' $file
-	fi
-	if [ ! -f $file ]
-	then
+	else
 		echo "Not a File (Ignored): $file"
 	fi
 done
