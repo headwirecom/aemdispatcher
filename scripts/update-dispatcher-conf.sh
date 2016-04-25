@@ -11,6 +11,16 @@ echo "Load Environment Variables"
 echo "************************************************"
 . ./setenv.sh
 
+echo "************************************************"
+echo "Shut down Apache Web Server"
+echo "************************************************"
+service httpd stop
+
+echo "************************************************"
+echo "Delete current Apache Dispatcher Configuration"
+echo "************************************************"
+rm -rf $APACHE_CONF_HOME
+
 if [ "$LOCAL" == "local" ]
 then
 	# Copy Project Fiels to project folder
@@ -68,4 +78,4 @@ ln -s `ls $APACHE_CONF_HOME/*.httpd.conf` /etc/httpd/conf.d/$APACEH_CONF_NAME
 echo
 echo "Restart Apache Service"
 echo
-service httpd restart
+service httpd start
