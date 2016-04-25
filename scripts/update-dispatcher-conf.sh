@@ -71,9 +71,9 @@ done
 
 # Link the Dispqtcher HTTP Conf file into the Apache
 echo "************************************************"
-echo Link HTTP Conf File: `ls $APACHE_CONF_HOME/*.httpd.conf` to /etc/httpd/conf.d/$APACEH_CONF_NAME
+echo Link HTTP Conf File: `ls $PROJECT_CONF/*.httpd.conf` to /etc/httpd/conf.d/$APACEH_CONF_NAME
 echo "************************************************"
-ln -s `ls $APACHE_CONF_HOME/*.httpd.conf` /etc/httpd/conf.d/$APACEH_CONF_NAME
+ln -s `ls $PROJECT_CONF/*.httpd.conf` /etc/httpd/conf.d/$APACEH_CONF_NAME
 
 # Restart Apache
 echo
