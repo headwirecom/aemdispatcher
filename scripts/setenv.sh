@@ -7,6 +7,7 @@
 export SYNC_FOLDER=/home/vagrant/sync
 export ARTIFACTS_FOLDER=$SYNC_FOLDER/artifacts
 export SCRIPTS_FOLDER=$SYNC_FOLDER/scripts
+export CONFIGURATION_FOLDER=/home/vagrant/configurations
 export DISPATCHER_NAME="dispatcher-*.tar.gz"
 
 export GIT_REPO_URL=https://github.com/headwirecom/aemdispatcher.git

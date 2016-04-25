@@ -28,13 +28,13 @@ then
 	echo "************************************************"
 	echo "Copy Dispatcher Configuration from local env"
 	echo "************************************************"
-	cp -R $SYNC_FOLDER/$SUB_PROJECT/$HTTP_CONF_SUB_FOLDER/* $PROJECT_CONF
+	cp -R $CONFIGURATION_FOLDER/$SUB_PROJECT/$HTTP_CONF_SUB_FOLDER/* $PROJECT_CONF
 else
 	# Copy Project Fiels to project folder
 	echo "************************************************"
 	echo "Copy Dispatcher Configuration from GIT folder"
 	echo "************************************************"
-	cp -R $GIT_HOME_FOLDER/aemdispatcher/$SUB_PROJECT/$HTTP_CONF_SUB_FOLDER/* $PROJECT_CONF
+	cp -R $GIT_HOME_FOLDER/aemdispatcher/configurations/$SUB_PROJECT/$HTTP_CONF_SUB_FOLDER/* $PROJECT_CONF
 fi
 
 # Filter Dispatcher HTTP Conf and Dispatcher Any file
@@ -76,10 +76,10 @@ done
 echo "************************************************"
 echo Link HTTP Conf File: `ls $PROJECT_CONF/*.httpd.conf` to /etc/httpd/conf.d/$APACEH_CONF_NAME
 echo "************************************************"
-ln -s `ls $PROJECT_CONF/*.httpd.conf` /etc/httpd/conf.d/$APACEH_CONF_NAME
+ln -s -f `ls $PROJECT_CONF/*.httpd.conf` /etc/httpd/conf.d/$APACEH_CONF_NAME
 
 # Restart Apache
-echo
+echo "************************************************"
 echo "Restart Apache Service"
-echo
+echo "************************************************"
 service httpd start
