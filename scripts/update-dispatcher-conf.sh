@@ -56,6 +56,9 @@ do
 		ENCODED=$( echo "$APACHE_CONF_HOME" | sed 's/\//\\\//g' )
 		echo Encoded Conf Folder: $ENCODED
 		sed -i 's/\@APACHE_CONF_FOLDER\@/'$ENCODED'/g' $file
+		ENCODED=$( echo "$PROJECT_CONF" | sed 's/\//\\\//g' )
+		echo Encoded Project Conf Folder: $ENCODED
+		sed -i 's/\@PROJECT_CONF\@/'$ENCODED'/g' $file
 		ENCODED=$( echo "$APACHE_LOG_FOLDER" | sed 's/\//\\\//g' )
 		echo Encoded Log Folder: $ENCODED
 		sed -i 's/\@APACHE_LOG_FOLDER\@/'$ENCODED'/g' $file
