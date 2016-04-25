@@ -17,6 +17,7 @@ export APACHE_LOG_FOLDER=/var/log/httpd
 export APACHE_DOCUMENT_ROOT_FOLDER=/var/www/dispatcher
 export APACEH_CONF_NAME=dispatcher.httpd.conf
 export PROJECT_MODULE=$APACHE_CONF_HOME/modules
+export PROJECT_CONF=$APACHE_CONF_HOME/conf
 export AEM_HOME_FOLDER=/home/aem
 export GIT_HOME_FOLDER=/home/git
 export SCRIPTS_IN_GIT=$GIT_HOME_FOLDER/aemdispatcher/scripts

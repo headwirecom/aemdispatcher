@@ -19,8 +19,8 @@ service httpd stop
 echo "************************************************"
 echo "Delete current Apache Dispatcher Configuration"
 echo "************************************************"
-rm -rf $APACHE_CONF_HOME
-mkdir -p $APACHE_CONF_HOME
+rm -rf $PROJECT_CONF
+mkdir -p $PROJECT_CONF
 
 if [ "$LOCAL" == "local" ]
 then
@@ -28,17 +28,17 @@ then
 	echo "************************************************"
 	echo "Copy Dispatcher Configuration from local env"
 	echo "************************************************"
-	cp -R $SYNC_FOLDER/$SUB_PROJECT/$HTTP_CONF_SUB_FOLDER/* $APACHE_CONF_HOME
+	cp -R $SYNC_FOLDER/$SUB_PROJECT/$HTTP_CONF_SUB_FOLDER/* $PROJECT_CONF
 else
 	# Copy Project Fiels to project folder
 	echo "************************************************"
 	echo "Copy Dispatcher Configuration from GIT folder"
 	echo "************************************************"
-	cp -R $GIT_HOME_FOLDER/aemdispatcher/$SUB_PROJECT/$HTTP_CONF_SUB_FOLDER/* $APACHE_CONF_HOME
+	cp -R $GIT_HOME_FOLDER/aemdispatcher/$SUB_PROJECT/$HTTP_CONF_SUB_FOLDER/* $PROJECT_CONF
 fi
 
 # Filter Dispatcher HTTP Conf and Dispatcher Any file
-cd $APACHE_CONF_HOME
+cd $PROJECT_CONF
 echo "************************************************"
 echo Filter HTTP Configuration and Dispatcher.any files
 echo "************************************************"
