@@ -19,7 +19,7 @@ setenforce 0
 echo "************************************************"
 echo "Permanently disable SELINUX"
 echo "************************************************"
-sed -i 's/enforcing/disadbled/g' /etc/selinux/config
+sed -i 's/enforcing/disadbled/g' $SELINUX_CONFIG
 
 # Create Home Folder and make it Root readable
 echo "************************************************"
@@ -59,7 +59,7 @@ ln -s `ls dispatcher*.so` mod_dispatcher.so
 echo "************************************************"
 echo "Install the JDK"
 echo "************************************************"
-yum -y install curl lsof net-tools java-1.8.0-openjdk-devel 
+yum -y install curl lsof net-tools $OPEN_JDK_INSTALLATION 
 
 # Install Apache Web Server
 echo "************************************************"
@@ -117,7 +117,7 @@ echo "************************************************"
 echo "INstall Sytem V runlevel scripts for AEM"
 echo "************************************************"
 cd $SCRIPTS_FOLDER
-. ./install-aem-services.sh
+. ./$INSTALL_AEM_SERVICES_SCRIPT
 
 # No need to start the AEM Publish isntance as we just did beforehand
 echo "************************************************"
@@ -131,9 +131,9 @@ if [ "$2" == "local" ]
 then
 	cd $SCRIPTS_FOLDER
 else
-	cd $GIT_HOME_FOLDER/aemdispatcher/scripts
+	cd $SCRIPTS_IN_GIT
 fi
-. ./update-dispatcher-conf.sh $1
+. ./$UPDATE_SCRIPT $1
 
 cat << EOF
 
@@ -158,7 +158,7 @@ cat << EOF
 * and then run the udpate scripts in the $GIT_HOME_FOLDER/aemdispatcher/sctipts folder
 * using this syntax:
 *
-* ./update-dispatcher-conf.sh <sub projet name>
+* ./$UPDATE_SCRIPT <sub projet name>
 *
 * Sub Project are any folders other than scripts and artifacts like plain-no-rewrites or
 * browser-language-redirect.

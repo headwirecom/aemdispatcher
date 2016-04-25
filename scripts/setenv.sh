@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#
+# This script contains most of the folders and URLs needed for setting up Vagrant
+# and to update the configuraton. Please make any adjustments here
+#
 export SYNC_FOLDER=/home/vagrant/sync
 export ARTIFACTS_FOLDER=$SYNC_FOLDER/artifacts
 export SCRIPTS_FOLDER=$SYNC_FOLDER/scripts
@@ -14,3 +18,10 @@ export APACHE_DOCUMENT_ROOT_FOLDER=/var/www/dispatcher
 export PROJECT_MODULE=$APACHE_CONF_HOME/modules
 export AEM_HOME_FOLDER=/home/aem
 export GIT_HOME_FOLDER=/home/git
+export SCRIPTS_IN_GIT=$GIT_HOME_FOLDER/aemdispatcher/scripts
+
+export SELINUX_CONFIG=/etc/selinux/config
+export OPEN_JDK_INSTALLATION=java-1.8.0-openjdk-devel
+
+export INSTALL_AEM_SERVICES_SCRIPT=install-aem-services.sh
+export UPDATE_SCRIPT=update-dispatcher-conf.sh

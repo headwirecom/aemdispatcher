@@ -8,13 +8,13 @@ echo "************************************************"
 echo "************************************************"
 echo "Copying System V start up scripts..."
 echo "************************************************"
-cp $ARTIFACTS_FOLDER/aem61publish /etc/init.d
+cp $ARTIFACTS_FOLDER/$AEM_INIT_SCRIPT /etc/init.d
 
 ENCODED=$( echo "$AEM_HOME_FOLDER" | sed 's/\//\\\//g' )
 echo "************************************************"
 echo Encoded AEM Folder: $ENCODED
 echo "************************************************"
-sed -i 's/\@AEM_HOME_FOLDER\@/'$ENCODED'/g' /etc/init.d/aem61publish
+sed -i 's/\@AEM_HOME_FOLDER\@/'$ENCODED'/g' /etc/init.d/$AEM_INIT_SCRIPT
 
 chmod 755 /etc/init.d/aem*
 
@@ -24,7 +24,7 @@ chmod 755 /etc/init.d/aem*
 echo "************************************************"
 echo "Enabling AEM services..."
 echo "************************************************"
-chkconfig aem61publish on
+chkconfig $AEM_INIT_SCRIPT on
 echo "************************************************"
 echo "Enabling HTTPD services..."
 echo "************************************************"

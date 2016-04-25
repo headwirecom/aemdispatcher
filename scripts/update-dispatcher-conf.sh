@@ -1,6 +1,7 @@
 #!/bin/bash
 
 SUB_PROJECT=$1
+LOCAL=$2
 echo "************************************************"
 echo "Install Sub Module: $SUB_PROJECT"
 echo "************************************************"
@@ -10,19 +11,19 @@ echo "Load Environment Variables"
 echo "************************************************"
 . ./setenv.sh
 
-if [ "$2" == "local" ]
+if [ "$LOCAL" == "local" ]
 then
 	# Copy Project Fiels to project folder
 	echo "************************************************"
 	echo "Copy Dispatcher Configuration from local env"
 	echo "************************************************"
-	cp -R $SYNC_FOLDER/$SUB_PROJECT/httpd/dispatcher/* $APACHE_CONF_HOME
+	cp -R $SYNC_FOLDER/$SUB_PROJECT/$HTTP_CONF_SUB_FOLDER/* $APACHE_CONF_HOME
 else
 	# Copy Project Fiels to project folder
 	echo "************************************************"
 	echo "Copy Dispatcher Configuration from GIT folder"
 	echo "************************************************"
-	cp -R $GIT_HOME_FOLDER/aemdispatcher/$SUB_PROJECT/httpd/dispatcher/* $APACHE_CONF_HOME
+	cp -R $GIT_HOME_FOLDER/aemdispatcher/$SUB_PROJECT/$HTTP_CONF_SUB_FOLDER/* $APACHE_CONF_HOME
 fi
 
 # Filter Dispatcher HTTP Conf and Dispatcher Any file
@@ -59,9 +60,9 @@ done
 
 # Link the Dispqtcher HTTP Conf file into the Apache
 echo "************************************************"
-echo Link HTTP Conf File: `ls $APACHE_CONF_HOME/*.httpd.conf` to /etc/httpd/conf.d/dispatcher.httpd.conf
+echo Link HTTP Conf File: `ls $APACHE_CONF_HOME/*.httpd.conf` to /etc/httpd/conf.d/$APACEH_CONF_NAME
 echo "************************************************"
-ln -s `ls $APACHE_CONF_HOME/*.httpd.conf` /etc/httpd/conf.d/dispatcher.httpd.conf
+ln -s `ls $APACHE_CONF_HOME/*.httpd.conf` /etc/httpd/conf.d/$APACEH_CONF_NAME
 
 # Restart Apache
 echo
