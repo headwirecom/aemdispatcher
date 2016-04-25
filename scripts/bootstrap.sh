@@ -134,7 +134,7 @@ then
 else
 	cd $SCRIPTS_IN_GIT
 fi
-. ./$UPDATE_SCRIPT $1
+. ./$UPDATE_SCRIPT $1 $2
 
 cat << EOF
 

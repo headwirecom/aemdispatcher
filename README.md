@@ -11,18 +11,35 @@ It also contains Vagrant projects setting up various Dispatcher solutions in a V
 
 * VirtualBox - https://www.virtualbox.org/wiki/Downloads
 * Vagrant - https://www.vagrantup.com/downloads.html
-* AEM 6.1
+* AEM 6.1 JAR and License file
 
 # Installation
 
 After installing Virtualbox and Vagrant onto your computer you need to place your **AEM 6.1** JAR file as well as the **license** file into the **/artifacts** folder. Make sure the JAR file is name **aem\*.jar** and the license file is named **license.properties**.
-Finally rename or create a symbolic link of the **dispatcher-apache\*.tar.gz** file to **dispatcher-module.tar.gz**.
 
 Now we can start Vagrant with:
 
 	vagrant up
 
-This will installation AEM and the Dispatcher into your Virtualbox instance. You can access your publish instance by: http://localhost:4503/ on your computer as there is a link towards the AEM instance running in your VM. If the page is coming up you can access it through the Dispatcher: http://localhost:8080/ as Apache in the VM is mapped to 8080 on your computer.
+which will install the **plain, no rewrite** configuration. If you want to install another configuration then you have to provide the module name (any folder inside the project beside **artifacts** and **scripts**:
+
+	MODULE=browser-language-redirect vagrant up
+
+In case you made some local changes or want to test your own module then you need to provide the following:
+
+	MODULE=my-own-project LOCAL=local vagrant up
+
+By default the scripts will clone the **aemdispatcher** git repo from **Github** and install the dispatcher configuration from there. With the local switch you can change settings locally and install them.
+
+You can access your publish instance by: http://localhost:4503/ on your computer as there is a link towards the AEM instance running in your VM. If the page is coming up you can access it through the Dispatcher: http://localhost:8080/ as Apache in the VM is mapped to 8080 on your computer.
+
+# Clean Up
+
+If you want to delete your virtual machine then you can do this from the project folder:
+
+	vagrant -f destroy
+
+If will ask you if you want to remove it and if you enter y[es] then it will remove you instance from your computer.
 
 # Project Notes
 

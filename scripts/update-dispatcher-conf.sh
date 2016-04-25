@@ -3,7 +3,7 @@
 SUB_PROJECT=$1
 LOCAL=$2
 echo "************************************************"
-echo "Install Sub Module: $SUB_PROJECT"
+echo "Install Sub Module: $SUB_PROJECT, Local: $LOCAL"
 echo "************************************************"
 
 echo "************************************************"
