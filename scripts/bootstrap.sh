@@ -2,6 +2,7 @@
 
 echo "************************************************"
 echo Installing Module: $1
+echo Is Local: $2
 echo "************************************************"
 
 echo "************************************************"
@@ -114,7 +115,7 @@ cp -R  $ARTIFACTS_FOLDER/bin $AEM_HOME_FOLDER/crx-quickstart/
 
 # Install System V scripts
 echo "************************************************"
-echo "INstall Sytem V runlevel scripts for AEM"
+echo "Install Sytem V runlevel scripts for AEM"
 echo "************************************************"
 cd $SCRIPTS_FOLDER
 . ./$INSTALL_AEM_SERVICES_SCRIPT

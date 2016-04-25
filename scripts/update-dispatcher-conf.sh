@@ -20,6 +20,7 @@ echo "************************************************"
 echo "Delete current Apache Dispatcher Configuration"
 echo "************************************************"
 rm -rf $APACHE_CONF_HOME
+mkdir -p $APACHE_CONF_HOME
 
 if [ "$LOCAL" == "local" ]
 then
