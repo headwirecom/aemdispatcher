@@ -11,11 +11,17 @@ For specific documentation on the examples read the Readme.md files inside their
 
 * VirtualBox - https://www.virtualbox.org/wiki/Downloads
 * Vagrant - https://www.vagrantup.com/downloads.html
+* Vagrant VB Guest: https://github.com/dotless-de/vagrant-vbguest (Installation see below)
 * AEM 6.1 JAR and License file
 
-# Installation
+# Preparation
 
-After installing Virtualbox and Vagrant onto your computer you need to place your **AEM 6.1** JAR file as well as the **license** file into the **/artifacts** folder. Make sure the JAR file pattern is name **aem\*.jar** and the license file is named **license.properties**.
+After installing Virtualbox and Vagrant onto your computer you need to place your **AEM 6.1** JAR file as well as the **license** file into the **/artifacts** folder. Make sure the JAR file pattern is **aem\*.jar** and the license file is named **license.properties**.
+In order to make the **shared directories** work we need to install the **Virtualbox Guest Addition**. This is automatically done by a plugin which needs to be installed **once** here before using Vagrant:
+
+	vagrant plugin install vagrant-vbguest
+
+# Installation
 
 Now we can start Vagrant with:
 
@@ -84,7 +90,7 @@ In order to enabled custom development on your computer the **configurations** f
 2. Login to Vagrant: "vagrant ssh" from anywhere in the project
 3. Become root with "sudo -s"
 4. Go to the scripts folder: "cd /home/vagrant/sync/scripts"
-5. Run the script with the configuration folder name as first parameter and "local" as second parameter: "./update-dispatcher-conf.sh <configuration folder name> local"
+5. Run the script with the configuration folder name as first parameter and "local" as second parameter: "./update-dispatcher-conf.sh &lt;configuration folder name> local"
 6. Check that the HTTP service did restart successfully
 
 **Attention**: in order to deploy your own configuration you need to do a **local** update otherwise the configuration is taken from the cloned GIT repository under /home/git/aemdispatcher.
